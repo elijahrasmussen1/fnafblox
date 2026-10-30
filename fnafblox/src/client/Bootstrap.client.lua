@@ -8,10 +8,12 @@ local gui = Instance.new("ScreenGui")
 gui.Name = "FnafbloxPrototype"
 gui.ResetOnSpawn = false
 gui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+local renderer = require(script.Parent:WaitForChild("VisualRenderer"))
 local root = Instance.new("Frame")
 root.Size = UDim2.fromScale(1, 1)
 root.BackgroundColor3 = Color3.fromRGB(13, 13, 18)
 root.Parent = gui
+local visuals = renderer.create(root)
 local layout = Instance.new("UIListLayout")
 layout.Padding = UDim.new(0, 8)
 layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -53,6 +55,7 @@ end
 snapshot.OnClientEvent:Connect(function(data)
     if type(data) ~= "table" then return end
     state = data
+    visuals.render(data)
     local hour = math.min(6, math.floor((data.elapsed or 0) / 60))
     local timeText = hour == 0 and "12 AM" or tostring(hour) .. " AM"
     status.Text = string.format("%s | Power %.1f%% | %s", timeText, data.power or 0, data.finished and data.result or "RUNNING")
