@@ -1,0 +1,1 @@
+# fnafblox Roblox workspace\n\nNative Luau reconstruction will live here. Research tools in `tools/` analyze the preserved `../original/` tree. No playable Roblox port exists yet.\n
