@@ -1,0 +1,1 @@
+{"name":"fnafblox","tree":{"$className":"DataModel","ReplicatedStorage":{"Fnafblox":{"$path":"src/shared"}},"ServerScriptService":{"FnafbloxServer":{"$path":"src/server"}},"StarterPlayer":{"StarterPlayerScripts":{"FnafbloxClient":{"$path":"src/client"}}}}}
