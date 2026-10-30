@@ -1,6 +1,7 @@
 --!strict
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local AppController = require(script.Parent:WaitForChild("AppController"))
 local remotes = ReplicatedStorage:WaitForChild("FnafbloxRemotes")
 local command = remotes:WaitForChild("Command")
 local snapshot = remotes:WaitForChild("Snapshot")
@@ -13,6 +14,7 @@ local root = Instance.new("Frame")
 root.Size = UDim2.fromScale(1, 1)
 root.BackgroundColor3 = Color3.fromRGB(13, 13, 18)
 root.Parent = gui
+root.Visible = false
 local visuals = renderer.create(root)
 local layout = Instance.new("UIListLayout")
 layout.Padding = UDim.new(0, 8)
@@ -52,6 +54,9 @@ for _, control in ipairs(controls) do
         command:FireServer(control[2], not state[control[2]])
     end)
 end
+local app = AppController.create(gui, function(_night)
+    root.Visible = true
+end)
 snapshot.OnClientEvent:Connect(function(data)
     if type(data) ~= "table" then return end
     state = data
