@@ -9,9 +9,14 @@
 - 52 MP3/OGG basename pairs and an additional `9999.mp3`.
 - The original tree is preserved as one nested Git tree, not copied or regenerated.
 
+## Confirmed binary container findings
+
+- `original/resources/FNAF1HTML5.cc1` is a ZIP file with one DEFLATE member, `Application.ccj` (31,560 compressed bytes; 258,988 uncompressed bytes).
+- `fnafblox/tools/extract_application.py` safely extracts that member and emits an offset-indexed ASCII / UTF-16LE string report locally. It has been committed but **not executed against a local checkout in this session**.
+
 ## Not yet verified / not extracted
 
-- Frame list, object tables, event conditions/actions, AI thresholds, asset-to-object relationships, and compressed container structure.
+- Frame list, object tables, event conditions/actions, AI thresholds, and asset-to-object relationships. The outer ZIP container is identified; internal CCJ chunks are not yet parsed.
 - Actual visual contents of each numbered PNG.
 - Exact gameplay behavior and completeness of demo vs retail content.
 
