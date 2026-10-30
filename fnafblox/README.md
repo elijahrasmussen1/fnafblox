@@ -1,21 +1,28 @@
-# Roblox Studio workspace
+# fnafblox — Roblox Studio project
 
-The first **Luau smoke-test prototype** is now committed. It includes a server-authoritative timer, power simulation, and five UI toggles (monitor, two doors, two lights).
+## Milestone 01: structure and menu (in progress)
 
-**Not yet implemented:** original artwork, camera images, animatronic AI, jumpscares, sound, save data, or exact original gameplay values. The timing and drain values are placeholders.
+The app now **boots into a native Roblox GUI title menu**. Selecting **New Game** hides the menu and reveals the existing experimental gameplay controls. **Continue**, **Options**, and **Credits** currently show placeholder messages. This is not yet a visual recreation of the original title screen.
 
-## Open when you're back at your computer
+The 3D character and camera are locked by `CameraLock.client.lua`. Office movement is intended to be rendered by panning GUI images, not moving Roblox's camera.
 
-1. Install the Rojo CLI and Studio plugin: https://rojo.space/
-2. Clone this repository and open a terminal in `fnafblox/`.
-3. Run `rojo serve default.project.json`.
-4. In Roblox Studio, open a blank place and connect the Rojo plugin.
-5. Press Play. Verify the clock and power tick down and all five toggles respond.
+### Code layout
 
-The original HTML5 tree is untouched under `../original/`. Binary extraction tools are under `tools/`; generated reports are ignored by Git.
+- `src/client/Bootstrap.client.lua` — UI startup and prototype controls
+- `src/client/AppController.lua` — menu/gameplay screen transitions
+- `src/client/MenuController.lua` — title menu and input
+- `src/client/CameraLock.client.lua` — fixed Roblox camera and character
+- `src/client/VisualRenderer.lua` — image-based scene canvas
+- `src/shared/MenuConfig.lua` — provisional menu configuration
+- `src/shared/VisualManifest.lua` and `VisualResolver.lua` — scene state and image mappings
+- `src/server/Bootstrap.server.lua` — prototype server state
 
-## Research status
+See `research/MILESTONE_01.md` for acceptance criteria and limitations.
 
-- The `.cc1` archive is confirmed ZIP with `Application.ccj` inside.
-- The ZIP extractor is committed; full internal event/object parsing is not yet complete.
-- The prototype is **not Studio-tested** yet; do not interpret a successful commit as a successful playtest.
+### Open in Studio later
+
+1. Install Rojo CLI and Studio plugin: https://rojo.space/
+2. Clone the repository and run `rojo serve default.project.json` inside `fnafblox/`.
+3. Open a blank place in Roblox Studio, connect the Rojo plugin, and Play.
+
+**Not yet Studio-tested.** Original title artwork, sprite animation, static effects, sound, and save logic have not been mapped. All gameplay timing values remain provisional. Original source is preserved in `../original/`.
