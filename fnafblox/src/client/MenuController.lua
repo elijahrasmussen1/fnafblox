@@ -2,6 +2,7 @@
 -- 2D title screen and local menu state; gameplay is not started by this module.
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local config = require(ReplicatedStorage:WaitForChild("Fnafblox"):WaitForChild("MenuConfig"))
+local SpriteSequencePlayer = require(script.Parent:WaitForChild("SpriteSequencePlayer"))
 local MenuController = {}
 function MenuController.create(parent: Instance, onStart: (number) -> ())
     local root = Instance.new("Frame")
@@ -19,6 +20,20 @@ function MenuController.create(parent: Instance, onStart: (number) -> ())
     scanlines.BorderSizePixel = 0
     scanlines.ZIndex = 10
     scanlines.Parent = root
+    -- Imported image IDs live in MenuConfig. Until assigned, the dark art placeholder remains.
+    local art = Instance.new("ImageLabel")
+    art.Name = "TitleArt"
+    art.Size = UDim2.fromScale(1, 1)
+    art.BackgroundTransparency = 1
+    art.ScaleType = Enum.ScaleType.Stretch
+    art.ZIndex = 10
+    art.Parent = scanlines
+    local artPlayer = SpriteSequencePlayer.create(art)
+    if config.artFrames and #config.artFrames > 0 then
+        artPlayer.play(config.artFrames, true)
+    else
+        art.Visible = false
+    end
     local title = Instance.new("TextLabel")
     title.Name = "Title"
     title.Position = UDim2.fromScale(0.06, 0.12)
@@ -93,6 +108,7 @@ function MenuController.create(parent: Instance, onStart: (number) -> ())
         root.Visible = false
     end
     function controller.destroy()
+        artPlayer.destroy()
         root:Destroy()
     end
     return controller
