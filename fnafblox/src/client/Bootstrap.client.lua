@@ -2,9 +2,6 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AppController = require(script.Parent:WaitForChild("AppController"))
-local remotes = ReplicatedStorage:WaitForChild("FnafbloxRemotes")
-local command = remotes:WaitForChild("Command")
-local snapshot = remotes:WaitForChild("Snapshot")
 local gui = Instance.new("ScreenGui")
 gui.Name = "FnafbloxPrototype"
 gui.ResetOnSpawn = false
@@ -57,6 +54,11 @@ end
 local app = AppController.create(gui, function(_night)
     root.Visible = true
 end)
+-- Initialize the title screen before waiting for gameplay networking.
+-- This allows the menu to appear even if the server bootstrap is missing.
+local remotes = ReplicatedStorage:WaitForChild("FnafbloxRemotes")
+local command = remotes:WaitForChild("Command")
+local snapshot = remotes:WaitForChild("Snapshot")
 snapshot.OnClientEvent:Connect(function(data)
     if type(data) ~= "table" then return end
     state = data
